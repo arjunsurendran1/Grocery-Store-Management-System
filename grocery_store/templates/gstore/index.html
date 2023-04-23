@@ -1,0 +1,91 @@
+{% extends 'gstore/base.html' %}
+
+{% block body %}
+
+  <div class="add_buttons">
+
+    <div class="button-group">
+      <a href="{% url 'display_rice' %}" class="btn btn-primary btn-md btn-trim" role="button"> Rice</a>
+      <a href="{% url 'add_rice' %}" class="btn btn-warning btn-sm btn-pad" role="button"> +</a>
+
+      <a href="{% url 'display_bakery' %}" class="btn btn-primary btn-md btn-trim" role="button"> Bakery</a>
+      <a href="{% url 'add_bakery' %}" class="btn btn-warning btn-sm btn-pad" role="button"> +</a>
+
+      <a href="{% url 'display_dairy' %}" class="btn btn-primary btn-md btn-trim" role="button"> Dairy Products</a>
+      <a href="{% url 'add_dairy' %}" class="btn btn-warning btn-sm btn-pad" role="button"> +</a>
+
+      <a href="{% url 'display_drinks' %}" class="btn btn-primary btn-md btn-trim" role="button"> Drinks</a>
+      <a href="{% url 'add_drinks' %}" class="btn btn-warning btn-sm btn-pad" role="button"> +</a>
+
+      <a href="{% url 'display_spices' %}" class="btn btn-primary btn-md btn-trim" role="button"> Spices</a>
+      <a href="{% url 'add_spices' %}" class="btn btn-warning btn-sm btn-pad" role="button"> +</a>
+    </div>
+
+  </div>
+  <br>
+
+  <div>
+
+    <h4>Currently Viewing {{ header }}</h4>
+  </div>
+  <br>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>Type</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Offers</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      {% for item in items %}
+
+      <tr>
+        <td>{{ item.pk }}
+        <td>{{ item.type }}</td>
+        <td>{{ item.price }} ₹</td>
+        <td>{{ item.status }}</td>
+        <td>{{ item.offers }}</td>
+
+        {% if header|lower == "rice" %}
+        <td>
+            <a href="{% url 'edit_rice' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
+            <a href="{% url 'delete_rice' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > x</a>
+        </td>
+        {% elif header|lower == "bakery" %}
+        <td>
+            <a href="{% url 'edit_bakery' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
+            <a href="{% url 'delete_bakery' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > x</a>
+        </td>
+        {% elif header|lower == "dairy" %}
+        <td>
+            <a href="{% url 'edit_dairy' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
+            <a href="{% url 'delete_dairy' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > x</a>
+        </td>
+        {% elif header|lower == "drinks" %}
+        <td>
+            <a href="{% url 'edit_drinks' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
+            <a href="{% url 'delete_drinks' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > x</a>
+        </td>
+
+        {% else %}
+        <td>
+          <a href="{% url 'edit_spices' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
+          <a href="{% url 'delete_spices' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > x</a>
+      </td>
+        {% endif %}
+
+
+      </tr>
+
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}
